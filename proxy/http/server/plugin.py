@@ -130,3 +130,10 @@ class ReverseProxyBasePlugin(ABC):
     def routes(self) -> List[Tuple[str, List[bytes]]]:
         """Return List(path, List(upstream)) reverse proxy config."""
         raise NotImplementedError()     # pragma: no cover
+
+    def handle_request(
+            self, request: HttpParser,
+    ) -> HttpParser:
+        """Handler called before dispatching client request to upstream.
+        """
+        return request  # pragma: no cover

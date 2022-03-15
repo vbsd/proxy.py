@@ -56,6 +56,9 @@ class ReverseProxy(TcpUpstreamConnectionHandler, HttpWebServerBasePlugin):
         return r
 
     def handle_request(self, request: HttpParser) -> None:
+        for klass in self.flags.plugins[b'ReverseProxyBasePlugin']:
+            instance: 'ReverseProxyBasePlugin' = klass()
+            request = instance.handle_request(request)
         # TODO: Core must be capable of dispatching a context
         # with each invocation of handle request callback.
         #
